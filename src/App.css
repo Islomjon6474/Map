@@ -6,11 +6,29 @@
   height: 40vmin;
   pointer-events: none;
 }
+.map {
+  border-radius: 25px;
+  background-color: red;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.icon {
+  color: white;
+  font-size: 30px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+.text {
+  color: red;
+}
+img {
+  width: 20px;
+  height: 20px;
 }
 
 .App-header {

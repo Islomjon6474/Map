@@ -1,23 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import ReactMapGl from "react-map-gl";
+import { useState } from "react";
+import { Marker } from "react-map-gl";
+import { FaApple } from "react-icons/fa";
 
 function App() {
+  const [viewport, setViewport] = useState({
+    latitude: 41.3299592,
+    longitude: 69.2844378,
+    width: "50vw",
+    height: "50vh",
+    borderRadius: "25px",
+    outline: "none",
+    zoom: 10,
+  });
+  const [viewpoint, setViewpoint] = useState([]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="map">
+        <ReactMapGl
+          {...viewport}
+          mapboxApiAccessToken="pk.eyJ1IjoiaXNsb21qb24iLCJhIjoiY2t6NmhkYW1hMGJ3cDJvczhxem52cW44aiJ9.jG3OE2FyEnD4U11CXe_MiA"
+          mapStyle={"mapbox://styles/islomjon/ckz6hwaa8006v16o63wz6gt1g"}
+          onViewportChange={(viewport) => setViewport(viewport)}
+          onDblClick={(e) => {
+            // console.log(e.lngLat);
+            const obj = {
+              latitude: e.lngLat[1],
+              longitude: e.lngLat[0],
+            };
+            viewpoint.push(obj);
+            console.log(viewpoint);
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <div>
+            {viewpoint.map((item) => {
+              return (
+                <Marker latitude={item.latitude} longitude={item.longitude}>
+                  <FaApple className="icon" />
+                </Marker>
+              );
+            })}
+          </div>
+        </ReactMapGl>
+      </div>
     </div>
   );
 }
